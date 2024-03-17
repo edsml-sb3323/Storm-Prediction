@@ -1,0 +1,42 @@
+name: notebook-test
+
+on:
+   # Trigger the workflow on push or pull request,
+   # but only for the master branch
+   push:
+     branches:
+       - master
+   pull_request:
+     branches:
+       - master
+
+jobs:
+  nbval:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v1
+      with:
+        python-version: "3.10"
+
+    - name: Install dependencies
+      run: |
+        pip install --upgrade pip
+        pip install numpy
+        pip install scipy
+        pip install nbval
+
+    - name: Check notebook using nbval
+      run: |
+        pytest --nbval-lax miscellaneous/predict_wind_speed/Mayeul_EDA_NN.ipynb
+        pytest --nbval-lax miscellaneous/predict_wind_speed/SihanCao-ResNet+Transformer.ipynb
+        pytest --nbval-lax miscellaneous/predict_wind_speed/YuxuanWen-ResNet+LSTM.ipynb
+        pytest --nbval-lax miscellaneous/generate_storm_images/Oscar_3DCNN.ipynb
+        pytest --nbval-lax miscellaneous/generate_storm_images/convlstm_packaged_updated.ipynb
+        pytest --nbval-lax miscellaneous/generate_storm_images/convlstm_scratch_gkh.ipynb
+        pytest --nbval-lax miscellaneous/generate_storm_images/dataloader_test.ipynb
+        pytest --nbval-lax miscellaneous/generate_storm_images/Geyu_ResNet.ipynb
