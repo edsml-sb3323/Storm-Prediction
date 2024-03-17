@@ -1,0 +1,14 @@
+numpy
+pandas
+matplotlib
+seaborn
+pycm
+torch
+torchvision
+livelossplot
+itertools
+pycm
+torchsummary 
+Pillow 
+scikit-learn 
+tqdm
